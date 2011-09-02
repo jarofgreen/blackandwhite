@@ -1,18 +1,25 @@
 <?php
+require 'config.php';
+
 if (!isset($_GET['lat']) || !isset($_GET['lng'])) {
 	header('Location: /');
 	die();
 }
-$lat = floatval($_GET['lat']);
+
+$lat = -1 * floatval($_GET['lat']);
 $lng = floatval($_GET['lng']);
+$lng = $lng > 0 ? $lng - 180 : $lng + 180;
 
-# TODO go to the other side of the world here!
+$latMin = max($lat - BOX_SIZE,-90);
+$latMax = min($lat + BOX_SIZE,90);
+$lngMin = max($lng - BOX_SIZE,-180);
+$lngMax = min($lng + BOX_SIZE,180);
 
-
-require 'config.php';
-$url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".
-	API_KEY."&lat=".$lat."&lng=".$lng."&radius=1000&safe_search=1&per_page=30&min_upload_date=".(time()-200*24*60*60);
+$url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".API_KEY.
+	"&bbox=".$lngMin.",".$latMin.",".$lngMax.",".$latMax.
+	"&safe_search=1&per_page=30&min_upload_date=".(time()-200*24*60*60);
 //print $url; die();
+print $url;
 
 
 $ch = curl_init();
