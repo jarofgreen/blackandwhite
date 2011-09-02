@@ -78,7 +78,7 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 				This product uses the Flickr API but is not endorsed or certified by Flickr.<br>
 				Original Idea by <a href="http://oliland.net/">Oli Kingshott</a> + others.<br>
 				Programming by <a href="http://uk.linkedin.com/in/jamesbaster">James Baster</a>.<br>
-				Thanks to <a href="http://jquery.com/">JQuery</a> and <a href="http://www.openlayers.org/">OpenLayers</a>.<br>
+				Thanks to <a href="http://jquery.com/">JQuery</a>, <a href="http://www.openstreetmap.org/">OpenStreetMap</a> and <a href="http://www.openlayers.org/">OpenLayers</a>.<br>
 				Code on <a href="http://github.com/jarofgreen/blackandwhite">GitHub</a>
 			</div>
 
