@@ -13,7 +13,13 @@ $(document).ready(function() {
 	);
 
 
+	setLocation(geoip_latitude(),geoip_longitude());
+
 });
 
+function setLocation(lat,lng) {
+	$('#LatVal').val(lat);
+	$('#LngVal').val(lng);
+}
 
 

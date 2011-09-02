@@ -5,11 +5,21 @@
 	<body>
 		<div id="BodyWrapper">
 			<div id="Map"></div>
-			
+
+			<form action="/showme.php" method="get">
+				<input type="hidden" name="lat" value="" id="LatVal">
+				<input type="hidden" name="lng" value="" id="LngVal">
+				<input type="submit" value="Go!">
+			</form>
+
+			<div id="Footer">
+				<a href="http://www.maxmind.com">Geoip by MaxMind</a>
+			</div>
 
 		</div>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 		<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script type="text/javascript" src="http://j.maxmind.com/app/geoip.js"></script>
 		<script type="text/javascript" src="page1.js"></script>
 		
 	</body>
