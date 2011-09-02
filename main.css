@@ -36,3 +36,11 @@ ul.photos li a img {
 
 }
 
+form.goFromMap {
+	padding: 30px;
+	font-size: 16pt;
+}
+form.goFromMap input[type="submit"] {
+	font-size: 16pt;
+}
+
