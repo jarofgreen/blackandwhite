@@ -17,9 +17,9 @@ $lngMax = min($lng + BOX_SIZE,180);
 
 $url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".API_KEY.
 	"&bbox=".$lngMin.",".$latMin.",".$lngMax.",".$latMax.
-	"&safe_search=1&per_page=30&min_upload_date=".(time()-200*24*60*60);
+	"&safe_search=1&per_page=30&extras=geo&min_upload_date=".(time()-200*24*60*60);
 //print $url; die();
-print $url;
+//print $url;
 
 
 $ch = curl_init();
@@ -45,6 +45,8 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 	$out['server'] = $x->attributes->getNamedItem('server')->nodeValue;
 	$out['secret'] = $x->attributes->getNamedItem('secret')->nodeValue;
 	$out['owner'] = $x->attributes->getNamedItem('owner')->nodeValue;
+	$out['lng'] = $x->attributes->getNamedItem('longitude')->nodeValue;
+	$out['lat'] = $x->attributes->getNamedItem('latitude')->nodeValue;
 	$out['url_thumb'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_t.jpg";
 	$out['url_page'] = "http://www.flickr.com/photos/".$out['owner']."/".$out['id'];
 	$photos[] = $out;
@@ -58,12 +60,13 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 	<body>
 		<div id="BodyWrapper">
 
+			<div id="smallMap"></div>
+
 			<ul class="photos">
 				<?php foreach($photos as $photo) { ?>
 					<li><a href="<?php print $photo['url_page'] ?>"><img src="<?php print $photo['url_thumb'] ?>"></a></li>
 				<?php } ?>
 			</ul>
-
 
 			<div id="Footer">
 				<a href="http://www.maxmind.com">Geoip by MaxMind</a>.
@@ -71,5 +74,19 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 			</div>
 
 		</div>
+
+		<script>
+			var lat = <?php print $lat ?>;
+			var lng = <?php print $lng ?>;
+			var data = new Array();
+			<?php $i = 0; foreach($photos as $photo) { ?>
+			data[<?php print $i ?>] = { lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?> };
+			<?php  $i++; } ?>
+		</script>
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+		<script type="text/javascript" src="page2.js"></script>
+
 	</body>
 </html>
