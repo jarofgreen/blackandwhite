@@ -68,9 +68,18 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 				<?php } ?>
 			</ul>
 
+			<form action="/" method="get" class="goFromMap">
+				<input type="submit" value="Cool, let me try another location!">
+			</form>
+
 			<div id="Footer">
-				<a href="http://www.maxmind.com">Geoip by MaxMind</a>.
-				This product uses the Flickr API but is not endorsed or certified by Flickr.
+				All photos are copyright of their respective owners.<br>
+				<a href="http://www.maxmind.com">Geoip by MaxMind</a>.<br>
+				This product uses the Flickr API but is not endorsed or certified by Flickr.<br>
+				Original Idea by <a href="http://oliland.net/">Oli Kingshott</a> + others.<br>
+				Programming by <a href="http://uk.linkedin.com/in/jamesbaster">James Baster</a>.<br>
+				Thanks to <a href="http://jquery.com/">JQuery</a> and <a href="http://www.openlayers.org/">OpenLayers</a>.<br>
+				Code on <a href="http://github.com/jarofgreen/blackandwhite">GitHub</a>
 			</div>
 
 		</div>
