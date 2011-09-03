@@ -64,7 +64,11 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 
 			<ul class="photos">
 				<?php foreach($photos as $idx=>$photo) { ?>
-					<li id="Photo<?php print $idx ?>"><a href="<?php print $photo['url_page'] ?>"><img src="<?php print $photo['url_thumb'] ?>"></a></li>
+					<li id="Photo<?php print $idx ?>">
+						<a href="<?php print $photo['url_page'] ?>" target="_new">
+							<img src="<?php print $photo['url_thumb'] ?>">
+						</a>
+					</li>
 				<?php } ?>
 			</ul>
 
