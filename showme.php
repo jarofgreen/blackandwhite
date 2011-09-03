@@ -10,10 +10,10 @@ $lat = -1 * floatval($_GET['lat']);
 $lng = floatval($_GET['lng']);
 $lng = $lng > 0 ? $lng - 180 : $lng + 180;
 
-$latMin = max($lat - BOX_SIZE,-90);
-$latMax = min($lat + BOX_SIZE,90);
-$lngMin = max($lng - BOX_SIZE,-180);
-$lngMax = min($lng + BOX_SIZE,180);
+$latMin = max($lat - BOX_SIZE_LAT,-90);
+$latMax = min($lat + BOX_SIZE_LAT,90);
+$lngMin = max($lng - BOX_SIZE_LNG,-180);
+$lngMax = min($lng + BOX_SIZE_LNG,180);
 
 $url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".API_KEY.
 	"&bbox=".$lngMin.",".$latMin.",".$lngMax.",".$latMax.
