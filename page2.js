@@ -23,6 +23,8 @@ $(document).ready(function() {
 	for(i in data) {
 		var pos = new OpenLayers.LonLat(data[i].lng,data[i].lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
 		var marker = new OpenLayers.Marker(pos,icon.clone());
+		eval("f = function(evt) { $('ul.photos li').removeClass('selected'); $('li#Photo"+data[i].idx+"').addClass('selected'); OpenLayers.Event.stop(evt); }");
+		marker.events.register('mousedown', marker, f);
 		markerLayer.addMarker(marker);
 	}
 

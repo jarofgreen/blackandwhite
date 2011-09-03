@@ -34,11 +34,14 @@ ul.photos li {
 	padding: 10px;
 	width: 120px;
 	height: 120px;
+	border: 2px solid #ccc;
 }
 ul.photos li a img {
 	border: 0;
 }
-
+ul.photos li.selected {
+	border: 2px solid red;
+}
 #Footer {
 	clear: both;
 	font-size: 10px;

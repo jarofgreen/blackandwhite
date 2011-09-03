@@ -49,7 +49,7 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 	$out['lat'] = $x->attributes->getNamedItem('latitude')->nodeValue;
 	$out['url_thumb'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_t.jpg";
 	$out['url_page'] = "http://www.flickr.com/photos/".$out['owner']."/".$out['id'];
-	$photos[] = $out;
+	$photos[$pos] = $out;
 }
 
 ?>
@@ -63,8 +63,8 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 			<div id="smallMap"></div>
 
 			<ul class="photos">
-				<?php foreach($photos as $photo) { ?>
-					<li><a href="<?php print $photo['url_page'] ?>"><img src="<?php print $photo['url_thumb'] ?>"></a></li>
+				<?php foreach($photos as $idx=>$photo) { ?>
+					<li id="Photo<?php print $idx ?>"><a href="<?php print $photo['url_page'] ?>"><img src="<?php print $photo['url_thumb'] ?>"></a></li>
 				<?php } ?>
 			</ul>
 
@@ -88,8 +88,8 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 			var lat = <?php print $lat ?>;
 			var lng = <?php print $lng ?>;
 			var data = new Array();
-			<?php $i = 0; foreach($photos as $photo) { ?>
-			data[<?php print $i ?>] = { lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?> };
+			<?php $i = 0; foreach($photos as $idx=>$photo) { ?>
+			data[<?php print $i ?>] = { idx: <?php print $idx ?>, lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?> };
 			<?php  $i++; } ?>
 		</script>
 
