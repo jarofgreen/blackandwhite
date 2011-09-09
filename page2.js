@@ -1,3 +1,7 @@
+/**
+ * Licensed under the GNU Affero General Public License
+ * http://www.gnu.org/licenses/agpl.html
+ */
 var map, layer, markerLayer, marker;
 
 var size = new OpenLayers.Size(21,25);

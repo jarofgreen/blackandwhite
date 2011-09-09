@@ -1,4 +1,8 @@
 <?php
+/**
+ * Licensed under the GNU Affero General Public License
+ * http://www.gnu.org/licenses/agpl.html
+ */
 require 'config.php';
 
 if (!isset($_GET['lat']) || !isset($_GET['lng'])) {
