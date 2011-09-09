@@ -55,6 +55,9 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 ?>
 <html>
 	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=8" />
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<title>Black and White</title>
 		<link rel="stylesheet" href="main.css" type="text/css" />
 	</head>
 	<body>
