@@ -26,7 +26,7 @@ $lng = $lng > 0 ? $lng - 180 : $lng + 180;
 
 			<div id="MapPage">
 				<div id="Map"></div>
-				<p id="LoadingPleaseWait">Loading photos, please wait ...</p>
+				<p id="LoadingPleaseWait"><img src="loading.gif"> Loading photos, please wait ...</p>
 				<p id="ClickOnAMarker" style="display: none;">Click on any <img src="http://www.openlayers.org/dev/img/marker.png"> to see some photos!</p>
 				<form action="/" method="get" class="goFromMap" id="TryAnotherLocation" style="display: none;">
 					<input type="submit" value="Cool, let me try another location!">
