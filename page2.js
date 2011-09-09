@@ -8,7 +8,6 @@ var size = new OpenLayers.Size(21,25);
 var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
 
-
 $(document).ready(function() {
 
 	map = new OpenLayers.Map( 'Map');
@@ -40,7 +39,7 @@ function markerClicked(lat,lng) {
 	var html = '';
 	var firstID = -1;
 	for(i in data) {
-		if (data[i].lat == lat && data[i].lng == lng) {
+		if (roundLatLng(data[i].lat) == roundLatLng(lat) && roundLatLng(data[i].lng) == roundLatLng(lng)) {
 			html += '<li><a href="#" onclick="photoClicked('+i+'); return false;"><img src="'+data[i].thumb+'"></li>';
 			if (firstID == -1) firstID = i;
 		}
@@ -56,4 +55,9 @@ function markerClicked(lat,lng) {
 function photoClicked(idx) {
 	$('#PhotoPreview').html('<img src="'+data[idx].image+'">');
 	$('#PhotoText').html('<a href="'+data[idx].page+'" target="_new">'+data[idx].page+'</a>');
+}
+
+function roundLatLng(num) {
+	// flickr API seems to return lat & lng rounded to 6 so we'll use that to.
+	return Math.round(num*Math.pow(10,6))/Math.pow(10,6);
 }
