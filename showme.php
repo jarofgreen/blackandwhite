@@ -52,6 +52,7 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 	$out['lng'] = $x->attributes->getNamedItem('longitude')->nodeValue;
 	$out['lat'] = $x->attributes->getNamedItem('latitude')->nodeValue;
 	$out['url_thumb'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_t.jpg";
+	$out['url_image'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_z.jpg";
 	$out['url_page'] = "http://www.flickr.com/photos/".$out['owner']."/".$out['id'];
 	$photos[$pos] = $out;
 }
@@ -67,21 +68,21 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 	<body>
 		<div id="BodyWrapper">
 
-			<div id="smallMap"></div>
-
-			<ul class="photos">
-				<?php foreach($photos as $idx=>$photo) { ?>
-					<li id="Photo<?php print $idx ?>">
-						<a href="<?php print $photo['url_page'] ?>" target="_new">
-							<img src="<?php print $photo['url_thumb'] ?>">
-						</a>
-					</li>
-				<?php } ?>
-			</ul>
-
-			<form action="/" method="get" class="goFromMap">
-				<input type="submit" value="Cool, let me try another location!">
-			</form>
+			<div id="MapPage">
+				<div id="Map"></div>
+				<form action="/" method="get" class="goFromMap">
+					<input type="submit" value="Cool, let me try another location!">
+				</form>
+			</div>
+			
+			<div id="PhotoPage" style="display: none;">
+				<div id="PhotoPreview"></div>
+				<p id="PhotoText"></p>
+				<ul id="Photos"></ul>
+				<form action="#" onsubmit="$('#PhotoPage').hide(); $('#MapPage').show(); return false;" class="goFromMap">
+					<input type="submit" value="Back to map!">
+				</form>
+			</div>
 
 			<div id="Footer">
 				All photos are copyright of their respective owners.<br>
@@ -100,7 +101,7 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 			var lng = <?php print $lng ?>;
 			var data = new Array();
 			<?php $i = 0; foreach($photos as $idx=>$photo) { ?>
-			data[<?php print $i ?>] = { idx: <?php print $idx ?>, lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?> };
+			data[<?php print $i ?>] = { idx: <?php print $idx ?>, lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?>, thumb: '<?php print $photo['url_thumb'] ?>', image:'<?php print $photo['url_image'] ?>', page:'<?php print $photo['url_page'] ?>' };
 			<?php  $i++; } ?>
 		</script>
 

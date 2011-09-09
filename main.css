@@ -33,31 +33,26 @@ h2 {
 	border: 1px solid black;
 }
 
-#smallMap {
-	height: 50%;
-	width: 50%;
-	float: left;
-	border: 1px solid black;
-}
-
-ul.photos {
+ul#Photos {
 	padding: 0;
 	margin: 0;
 }
-ul.photos li {
-	float: left;
+ul#Photos li {
+	display: inline;
 	list-style-type: none;
 	padding: 10px;
 	width: 120px;
 	height: 120px;
-	border: 2px solid #ccc;
 }
-ul.photos li a img {
+ul#Photos li a img {
 	border: 0;
 }
-ul.photos li.selected {
-	border: 2px solid red;
+
+p#PhotoText {
+	text-align: right;
+	font-size: 10pt;
 }
+
 #Footer {
 	clear: both;
 	font-size: 10px;
