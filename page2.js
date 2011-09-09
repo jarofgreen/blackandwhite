@@ -38,10 +38,13 @@ function markerClicked(lat,lng) {
 
 	var html = '';
 	var firstID = -1;
+	var count = 0;
 	for(i in data) {
-		if (roundLatLng(data[i].lat) == roundLatLng(lat) && roundLatLng(data[i].lng) == roundLatLng(lng)) {
+		// flickr api terms say only 30 thumbnails per results page
+		if (count < 30 && roundLatLng(data[i].lat) == roundLatLng(lat) && roundLatLng(data[i].lng) == roundLatLng(lng)) {
 			html += '<li><a href="#" onclick="photoClicked('+i+'); return false;"><img src="'+data[i].thumb+'"></li>';
 			if (firstID == -1) firstID = i;
+			count++;
 		}
 	}
 
