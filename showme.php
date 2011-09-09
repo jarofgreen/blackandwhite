@@ -3,7 +3,6 @@
  * Licensed under the GNU Affero General Public License
  * http://www.gnu.org/licenses/agpl.html
  */
-require 'config.php';
 
 if (!isset($_GET['lat']) || !isset($_GET['lng'])) {
 	header('Location: /');
@@ -13,49 +12,6 @@ if (!isset($_GET['lat']) || !isset($_GET['lng'])) {
 $lat = -1 * floatval($_GET['lat']);
 $lng = floatval($_GET['lng']);
 $lng = $lng > 0 ? $lng - 180 : $lng + 180;
-
-$latMin = max($lat - BOX_SIZE_LAT,-90);
-$latMax = min($lat + BOX_SIZE_LAT,90);
-$lngMin = max($lng - BOX_SIZE_LNG,-180);
-$lngMax = min($lng + BOX_SIZE_LNG,180);
-
-$url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".API_KEY.
-	"&bbox=".$lngMin.",".$latMin.",".$lngMax.",".$latMax.
-	"&safe_search=1&per_page=250&extras=geo&min_upload_date=".(time()-200*24*60*60);
-//print $url; die();
-//print $url;
-
-
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$data = curl_exec($ch);
-curl_close($ch);
-
-
-//var_dump($data);
-
-$xmlDoc = new DOMDocument();
-$xmlDoc->loadXML($data);
-
-$photoNodeList = $xmlDoc->getElementsByTagName('photo');
-$photoNodeListLength = $photoNodeList->length;  
-$photos = array();
-for($pos=0; $pos<$photoNodeListLength; $pos++) {
-	$x = $photoNodeList->item($pos);
-	$out = array();
-	$out['id'] = $x->attributes->getNamedItem('id')->nodeValue;
-	$out['farm'] = $x->attributes->getNamedItem('farm')->nodeValue;
-	$out['server'] = $x->attributes->getNamedItem('server')->nodeValue;
-	$out['secret'] = $x->attributes->getNamedItem('secret')->nodeValue;
-	$out['owner'] = $x->attributes->getNamedItem('owner')->nodeValue;
-	$out['lng'] = $x->attributes->getNamedItem('longitude')->nodeValue;
-	$out['lat'] = $x->attributes->getNamedItem('latitude')->nodeValue;
-	$out['url_thumb'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_t.jpg";
-	$out['url_image'] = "http://farm".$out['farm'].".static.flickr.com/".$out['server']."/".$out['id']."_".$out['secret']."_z.jpg";
-	$out['url_page'] = "http://www.flickr.com/photos/".$out['owner']."/".$out['id'];
-	$photos[$pos] = $out;
-}
 
 ?>
 <html>
@@ -70,7 +26,9 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 
 			<div id="MapPage">
 				<div id="Map"></div>
-				<form action="/" method="get" class="goFromMap">
+				<p id="LoadingPleaseWait">Loading photos, please wait ...</p>
+				<p id="ClickOnAMarker" style="display: none;">Click on any <img src="http://www.openlayers.org/dev/img/marker.png"> to see some photos!</p>
+				<form action="/" method="get" class="goFromMap" id="TryAnotherLocation" style="display: none;">
 					<input type="submit" value="Cool, let me try another location!">
 				</form>
 			</div>
@@ -79,7 +37,7 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 				<div id="PhotoPreview"></div>
 				<p id="PhotoText"></p>
 				<ul id="Photos"></ul>
-				<form action="#" onsubmit="$('#PhotoPage').hide(); $('#MapPage').show(); return false;" class="goFromMap">
+				<form action="#" onsubmit="returnToMap(); return false;" class="goFromMap">
 					<input type="submit" value="Back to map!">
 				</form>
 			</div>
@@ -99,10 +57,6 @@ for($pos=0; $pos<$photoNodeListLength; $pos++) {
 		<script>
 			var lat = <?php print $lat ?>;
 			var lng = <?php print $lng ?>;
-			var data = new Array();
-			<?php $i = 0; foreach($photos as $idx=>$photo) { ?>
-			data[<?php print $i ?>] = { idx: <?php print $idx ?>, lat: <?php print $photo['lat'] ?>, lng: <?php print $photo['lng'] ?>, thumb: '<?php print $photo['url_thumb'] ?>', image:'<?php print $photo['url_image'] ?>', page:'<?php print $photo['url_page'] ?>' };
-			<?php  $i++; } ?>
 		</script>
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>

@@ -52,6 +52,10 @@ p#PhotoText {
 	text-align: right;
 	font-size: 10pt;
 }
+p#LoadingPleaseWait, p#ClickOnAMarker {
+	font-size: 18pt;
+	font-style: italic;
+}
 
 #Footer {
 	clear: both;

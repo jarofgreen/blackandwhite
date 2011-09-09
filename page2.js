@@ -8,35 +8,56 @@ var size = new OpenLayers.Size(21,25);
 var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
 
+var data;
+
 $(document).ready(function() {
 
 	map = new OpenLayers.Map( 'Map');
+
 	layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
 	map.addLayer(layer);
+
+	map.setCenter(
+		new OpenLayers.LonLat(lng, lat).transform(
+			new OpenLayers.Projection("EPSG:4326"),
+			map.getProjectionObject()
+		), 2
+	);
 
 	markerLayer = new OpenLayers.Layer.Markers( "Markers" );
 	map.addLayer(markerLayer);
 
-	var markersAdded = new Object;
-
-	for(i in data) {
-		var hashString = "LT"+roundLatLng(data[i].lat)+"LG"+roundLatLng(data[i].lng);
-		if (!markersAdded[hashString]) {
-			var pos = new OpenLayers.LonLat(data[i].lng,data[i].lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
-			var marker = new OpenLayers.Marker(pos,icon.clone());
-			eval("f = function(evt) { markerClicked("+data[i].lat+","+data[i].lng+");  OpenLayers.Event.stop(evt); }");
-			marker.events.register('mousedown', marker, f);
-			markerLayer.addMarker(marker);
-			markersAdded[hashString] = true;
+	$.ajax({
+		url: "getData.php?lat="+lat+"&lng="+lng,
+		dataTypeString: 'json',
+		success: function(d){
+			data = d;
+			var markersAdded = new Object;
+			for(i in data) {
+				var hashString = "LT"+roundLatLng(data[i].lat)+"LG"+roundLatLng(data[i].lng);
+				if (!markersAdded[hashString]) {
+					var pos = new OpenLayers.LonLat(data[i].lng,data[i].lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
+					var marker = new OpenLayers.Marker(pos,icon.clone());
+					eval("f = function(evt) { markerClicked("+data[i].lat+","+data[i].lng+");  OpenLayers.Event.stop(evt); }");
+					marker.events.register('mousedown', marker, f);
+					markerLayer.addMarker(marker);
+					markersAdded[hashString] = true;
+				}
+			}
+			map.zoomToExtent(markerLayer.getDataExtent());
+			$('#LoadingPleaseWait').hide();
+			$('#ClickOnAMarker').show();
 		}
-	}
+	});
 
-	map.zoomToExtent(markerLayer.getDataExtent());
+
+	
 
 });
 
 function markerClicked(lat,lng) {
 	$('#MapPage').hide();
+	$('#ClickOnAMarker').hide();
 
 	var html = '';
 	var firstID = -1;
@@ -65,4 +86,10 @@ function photoClicked(idx) {
 function roundLatLng(num) {
 	// flickr API seems to return lat & lng rounded to 6 so we'll use that to.
 	return Math.round(num*Math.pow(10,6))/Math.pow(10,6);
+}
+
+function returnToMap() {
+	$('#PhotoPage').hide();
+	$('#MapPage').show();
+	$('#TryAnotherLocation').show();
 }
