@@ -22,7 +22,7 @@ $lngMax = min($lng + BOX_SIZE_LNG,180);
 
 $url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=".API_KEY.
 	"&bbox=".$lngMin.",".$latMin.",".$lngMax.",".$latMax.
-	"&safe_search=1&per_page=250&extras=geo&min_upload_date=".(time()-200*24*60*60);
+	"&safe_search=1&per_page=".LOAD_THIS_MANY_PHOTOS."&extras=geo&min_upload_date=".(time()-200*24*60*60);
 //print $url; die();
 //print $url;
 
