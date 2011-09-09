@@ -13,12 +13,6 @@ $(document).ready(function() {
 	map = new OpenLayers.Map( 'Map');
 	layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
 	map.addLayer(layer);
-	map.setCenter(
-		new OpenLayers.LonLat(lng, lat).transform(
-			new OpenLayers.Projection("EPSG:4326"),
-			map.getProjectionObject()
-		), 2
-	);
 
 	markerLayer = new OpenLayers.Layer.Markers( "Markers" );
 	map.addLayer(markerLayer);
@@ -30,6 +24,8 @@ $(document).ready(function() {
 		marker.events.register('mousedown', marker, f);
 		markerLayer.addMarker(marker);
 	}
+
+	map.zoomToExtent(markerLayer.getDataExtent());
 
 });
 
