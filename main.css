@@ -58,14 +58,15 @@ p#LoadingPleaseWait, p#ClickOnAMarker {
 }
 
 #Footer {
+	padding-top: 20px;
 	clear: both;
 	font-size: 10px;
 
 }
 
 form.goFromMap {
-	padding: 30px;
-	font-size: 16pt;
+	padding: 5px 0;
+	font-size: 14pt;
 	clear: both;
 }
 form.goFromMap input[type="submit"] {
