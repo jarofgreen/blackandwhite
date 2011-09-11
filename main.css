@@ -10,6 +10,7 @@ body {
 	margin: 0;
 	text-align: center;
 	height: 100%;
+	background: #ccc;
 }
 h1 {
 	font-family: sans-serif;
