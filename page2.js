@@ -33,20 +33,24 @@ $(document).ready(function() {
 		success: function(d){
 			data = d;
 			var markersAdded = new Object;
-			for(i in data) {
-				var hashString = "LT"+roundLatLng(data[i].lat)+"LG"+roundLatLng(data[i].lng);
-				if (!markersAdded[hashString]) {
-					var pos = new OpenLayers.LonLat(data[i].lng,data[i].lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
-					var marker = new OpenLayers.Marker(pos,icon.clone());
-					eval("f = function(evt) { markerClicked("+data[i].lat+","+data[i].lng+");  OpenLayers.Event.stop(evt); }");
-					marker.events.register('mousedown', marker, f);
-					markerLayer.addMarker(marker);
-					markersAdded[hashString] = true;
+			if (data.length == 0) {
+				alert('We could not find any photos');
+			} else {
+				for(i in data) {
+					var hashString = "LT"+roundLatLng(data[i].lat)+"LG"+roundLatLng(data[i].lng);
+					if (!markersAdded[hashString]) {
+						var pos = new OpenLayers.LonLat(data[i].lng,data[i].lat).transform(new OpenLayers.Projection("EPSG:4326"),map.getProjectionObject());
+						var marker = new OpenLayers.Marker(pos,icon.clone());
+						eval("f = function(evt) { markerClicked("+data[i].lat+","+data[i].lng+");  OpenLayers.Event.stop(evt); }");
+						marker.events.register('mousedown', marker, f);
+						markerLayer.addMarker(marker);
+						markersAdded[hashString] = true;
+					}
 				}
-			}
-			map.zoomToExtent(markerLayer.getDataExtent());
-			$('#LoadingPleaseWait').hide();
-			$('#ClickOnAMarker').show();
+				map.zoomToExtent(markerLayer.getDataExtent());
+				$('#LoadingPleaseWait').hide();
+				$('#ClickOnAMarker').show();
+			}		
 		}
 	});
 
