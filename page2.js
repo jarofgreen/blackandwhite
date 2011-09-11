@@ -83,7 +83,7 @@ function markerClicked(lat,lng) {
 
 function photoClicked(idx) {
 	$('#PhotoPreview').html('<img src="'+data[idx].image+'">');
-	$('#PhotoText').html('<a href="'+data[idx].page+'" target="_new">'+data[idx].page+'</a>');
+	$('#PhotoText').html('By '+escapeHTML(data[idx].owner_name)+' <a href="'+data[idx].page+'" target="_new">'+data[idx].page+'</a>');
 }
 
 function roundLatLng(num) {
@@ -94,4 +94,8 @@ function roundLatLng(num) {
 function returnToMap() {
 	$('#PhotoPage').hide();
 	$('#TryAnotherLocation').show();
+}
+
+function escapeHTML(s) {
+	return s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
