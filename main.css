@@ -2,6 +2,9 @@
  * Licensed under the GNU Affero General Public License
  * http://www.gnu.org/licenses/agpl.html
  */
+html {
+	height: 100%;
+}
 body {
 	padding: 0;
 	margin: 0;
