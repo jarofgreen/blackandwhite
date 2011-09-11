@@ -75,6 +75,21 @@ p#PhotoText {
 #CloseLink {
 	text-align: right;
 }
+#CloseLink a {
+	font-family: sans-serif;
+	font-size: 14pt;
+	color: #999;
+	text-decoration: none;
+	padding-right: 30px;
+	background-image: url('close.png');
+	background-position: right;
+	background-repeat: no-repeat;
+	min-height: 30px;
+
+}
+#CloseLink a:hover {
+	color: #555;
+}
 
 p#LoadingPleaseWait, p#ClickOnAMarker {
 	font-size: 18pt;
