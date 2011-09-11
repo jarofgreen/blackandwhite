@@ -56,7 +56,6 @@ $(document).ready(function() {
 });
 
 function markerClicked(lat,lng) {
-	$('#MapPage').hide();
 	$('#ClickOnAMarker').hide();
 
 	var html = '';
@@ -90,6 +89,5 @@ function roundLatLng(num) {
 
 function returnToMap() {
 	$('#PhotoPage').hide();
-	$('#MapPage').show();
 	$('#TryAnotherLocation').show();
 }
